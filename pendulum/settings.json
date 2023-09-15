@@ -1,0 +1,22 @@
+{
+"title":"Task1",
+"segment":[
+{
+	"lenght":3,
+	"mass":1,
+	"theta":-90,
+	"omega":1
+},
+{
+	"lenght":3,
+	"mass":1,
+	"theta":80,
+	"omega":2
+}
+],
+"durance":10,
+"solver":{
+	"type":"euler",
+	"step":0.001
+}	
+}
