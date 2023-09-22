@@ -8,9 +8,11 @@
 #include <QPoint>
 #include <memory>
 
+
 #include "brunch.h"
 #include "eulersolver.h"
 #include "rungekuttasolver.h"
+#include "qplot.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

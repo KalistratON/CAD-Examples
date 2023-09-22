@@ -21,7 +21,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w(QApplication::primaryScreen()->size().width(), QApplication::primaryScreen()->size().height());
     w.setWindowState(Qt::WindowMaximized);
-
     QString css = styleString(":/styles/style.css");
     if (!css.isEmpty()) a.setStyleSheet(css);
 

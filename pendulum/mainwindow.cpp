@@ -58,9 +58,6 @@ void MainWindow::startModeling()
     }
     else
         (new QErrorMessage(this))->showMessage("Invalid argument");
-
-
-
 }
 
 void MainWindow::setStartPosition()
@@ -76,7 +73,6 @@ void MainWindow::setStartPosition()
         delete brunchBase;
 
     }
-
     //solver.release();
     if (solver_type == "euler")
         solver = std::make_unique<EulerSolver>(step, massBase, massChild, lenghtBase, lenghtChild,
@@ -90,6 +86,7 @@ void MainWindow::setStartPosition()
     solution_data.clear();
 
     try {
+
         solution_data = solver->solution(start, finish);
 
         brunchBase = new Brunch(pivot_left, pivot_top, width_of_beam, lenghtBase * 100.0);

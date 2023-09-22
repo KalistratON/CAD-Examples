@@ -1,5 +1,7 @@
 #include "rungekuttasolver.h"
 #include <QtMath>
+#include <QFile>
+#include <QTextStream>
 
 RungeKuttaSolver::RungeKuttaSolver(qreal _st, qreal _m_1,
                                    qreal _m_2, qreal _l_1,
@@ -21,6 +23,15 @@ QVector<QPair<qreal, qreal>> RungeKuttaSolver::solution(qreal t_0, qreal t_1)
     auto omg_1 = omega_1;
     auto omg_2 = omega_2;
 
+    QVector<QVector<qreal>> result(k);
+    result[0] = QVector<qreal> {t_0, phi_1, phi_2, omega_1, omega_2};
+    qreal Energy = 1/2*(1/3*m_1*l_1*l_1+m_2*l_1*l_1)*omega_1*omega_1+1/2*(1/3*m_2*l_2*l_2)*omega_2*omega_2+1/2*m_2*l_1*
+                                                                                                                                                         l_2*omega_1*omega_2*qCos(phi_1-phi_2)+(1/2*m_1+m_2)*9.81*l_1*qCos(phi_1)+1/2*m_2*9.81*l_2*qCos(phi_2);
+    QFile file("output.txt");
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream stream(&file);
+    stream << t_0 << ' ' << phi_1 << ' ' << phi_2 << ' ' << omega_1 << ' ' << omega_2 << ' ' << Energy << '\n';
+
     for(quint64 i = 1; i < k; i++)
     {
         auto w_1 = rightPartVector(points[i - 1].first, points[i - 1].second, omg_1, omg_2);
@@ -35,6 +46,13 @@ QVector<QPair<qreal, qreal>> RungeKuttaSolver::solution(qreal t_0, qreal t_1)
         points[i].second = points[i - 1].second + step/6*(w_1[1]+2*w_2[1]+2*w_3[1]+w_4[1]);
         omg_1 += step/6*(w_1[2]+2*w_2[2]+2*w_3[2]+w_4[2]);
         omg_2 += step/6*(w_1[3]+2*w_2[3]+2*w_3[3]+w_4[3]);
+
+        result[i] = QVector<qreal> {t_0 + i * step, points[i].first, points[i].second, omg_1, omg_2};
+
+        Energy = 1/2*(1/3*m_1*l_1*l_1+m_2*l_1*l_1)*omg_1*omg_1+1/2*(1/3*m_2*l_2*l_2)*omg_2*omg_2+1/2*m_2*l_1*
+                    l_2*omg_1*omg_2*qCos(points[i].first-points[i].second)+(1/2*m_1+m_2)*9.81*l_1*qCos(points[i].first)+1/2*m_2*9.81*l_2*qCos(points[i].second);
+
+        stream << t_0 + i * step << ' ' << points[i].first << ' ' << points[i].second << ' ' << omg_1 << ' ' << omg_2 << ' ' << Energy << '\n';
     }
     return points;
 }

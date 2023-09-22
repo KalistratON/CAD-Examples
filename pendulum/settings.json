@@ -2,21 +2,21 @@
 "title":"Task1",
 "segment":[
 {
-	"lenght":3,
-	"mass":1,
-	"theta":-90,
-	"omega":1
+	"lenght":4,
+	"mass":10,
+	"theta":60,
+	"omega":0
 },
 {
-	"lenght":3,
-	"mass":1,
-	"theta":80,
-	"omega":2
+	"lenght":4,
+	"mass":10,
+	"theta":30,
+	"omega":0
 }
 ],
 "durance":10,
 "solver":{
-	"type":"euler",
+	"type":"runge_kutta",
 	"step":0.001
 }	
 }

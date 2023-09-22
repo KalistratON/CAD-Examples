@@ -1,6 +1,6 @@
-QT       += core gui
+QT       += core gui printsupport
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++17
 
@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     brunch.cpp \
+    customplot.cpp \
     eulersolver.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -18,12 +19,14 @@ SOURCES += \
 
 HEADERS += \
     brunch.h \
+    customplot.h \
     eulersolver.h \
     mainwindow.h \
     rungekuttasolver.h \
     solver.h
 
 FORMS += \
+    customplot.ui \
     mainwindow.ui
 
 # Default rules for deployment.
