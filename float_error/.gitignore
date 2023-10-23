@@ -1,14 +1,14 @@
 */*
 
-!orthogonalization/*/*.cpp
-!orthogonalization/*/*.h
-!orthogonalization/*/*.pro*
-!orthogonalization/*/*.ui
-!orthogonalization/*/*.mlx
+!orthogonalization*/*.cpp
+!orthogonalization*/*.h
+!orthogonalization*/*.pro*
+!orthogonalization*/*.ui
+!orthogonalization*/*.mlx
 
 
-!point_in_polygon/*/*.cpp
-!point_in_polygon/*/*.h
-!point_in_polygon/*/*.pro*
-!point_in_polygon/*/*.ui
-!point_in_polygon/*/*.mlx
+!point_in_polygon*/FloatError/*.cpp
+!point_in_polygon*/FloatError/*.h
+!point_in_polygon*/FloatError/*.pro*
+!point_in_polygon*/FloatError/*.ui
+!point_in_polygon*/FloatError/*.mlx
