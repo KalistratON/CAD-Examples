@@ -25,8 +25,11 @@ QVector<QPair<qreal, qreal>> RungeKuttaSolver::solution(qreal t_0, qreal t_1)
 
     QVector<QVector<qreal>> result(k);
     result[0] = QVector<qreal> {t_0, phi_1, phi_2, omega_1, omega_2};
-    qreal Energy = 1/2*(1/3*m_1*l_1*l_1+m_2*l_1*l_1)*omega_1*omega_1+1/2*(1/3*m_2*l_2*l_2)*omega_2*omega_2+1/2*m_2*l_1*
-                                                                                                                                                         l_2*omega_1*omega_2*qCos(phi_1-phi_2)+(1/2*m_1+m_2)*9.81*l_1*qCos(phi_1)+1/2*m_2*9.81*l_2*qCos(phi_2);
+
+    qreal Energy = m_1*(l_1*omega_1) * (l_1*omega_1) / 6 + m_2 * ((l_2 * omega_2) * (l_2 * omega_2) / 6 +
+                                                                        m_2 / 2 * (l_1*l_1*omega_1*omega_1+l_1*l_2*omega_1*omega_2*qCos(phi_2-phi_1)))
+                   + m_1 * 9.81 *(1 - qCos(phi_1)) * l_1 / 2 + m_2 * 9.81 * (l_1 + l_2/2 - l_1 * qCos(phi_1)-l_2*qCos(phi_2)/2);
+
     QFile file("output.txt");
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream stream(&file);
@@ -49,8 +52,10 @@ QVector<QPair<qreal, qreal>> RungeKuttaSolver::solution(qreal t_0, qreal t_1)
 
         result[i] = QVector<qreal> {t_0 + i * step, points[i].first, points[i].second, omg_1, omg_2};
 
-        Energy = 1/2*(1/3*m_1*l_1*l_1+m_2*l_1*l_1)*omg_1*omg_1+1/2*(1/3*m_2*l_2*l_2)*omg_2*omg_2+1/2*m_2*l_1*
-                    l_2*omg_1*omg_2*qCos(points[i].first-points[i].second)+(1/2*m_1+m_2)*9.81*l_1*qCos(points[i].first)+1/2*m_2*9.81*l_2*qCos(points[i].second);
+        qreal Energy = m_1*(l_1*omg_1) * (l_1*omg_1) / 6 + m_2 * (l_2 * omg_2) * (l_2 * omg_2) / 6 +
+                       m_2 / 2 * (l_1*l_1*omg_1*omg_1+l_1*l_2*omg_1*omg_2*qCos(points[i].second-points[i].first))
+                       + m_1 * 9.81 *(1 - qCos(points[i].first)) * l_1 / 2 + m_2 * 9.81 * (l_1 + l_2/2 - l_1 * qCos(points[i].first)-l_2*qCos(points[i].second)/2);
+
 
         stream << t_0 + i * step << ' ' << points[i].first << ' ' << points[i].second << ' ' << omg_1 << ' ' << omg_2 << ' ' << Energy << '\n';
     }
@@ -63,12 +68,13 @@ QVector<qreal> RungeKuttaSolver::rightPartVector(qreal th_1, qreal th_2, qreal o
     qreal temp_2 = omg_2;
 
     qreal temp_3 = 1/(l_1*(9*m_2*qCos(2*(th_1 - th_2))-8*m_1-15*m_2)) *
-                  (9 * omg_1 * omg_1 * l_1 * m_2 * qSin(2*(th_1 - th_2)) +
-                   12*m_2*l_2*omg_2*omg_2*qSin(th_1 - th_2) +
-                   12*(3*m_2*qSin(th_1 - 2 * th_2)/4+qSin(th_1)*(m_1+5/4*m_2))*9.81);
+                   (9 * omg_1 * omg_1 * l_1 * m_2 * qSin(2*(th_1 - th_2)) +
+                    (9*9.81*m_2*qSin(th_1-2*th_2)) +
+                    12*m_2*l_2*omg_2*omg_2*qSin(th_1 - th_2) +
+                    12*9.81*(m_1+5*m_2/4)*qSin(th_1));
 
     qreal temp_4 = 1/(l_2*(9*m_2*qCos(2*(th_1 - th_2))-8*m_1-15*m_2)) *
-                    (-9*9.81*qSin(2*th_1 - th_2)*(m_1+2*m_2)-9*m_2*l_2*omg_2*omg_2*
+                   (-9*9.81*qSin(2*th_1 - th_2)*(m_1+2*m_2)-9*m_2*l_2*omg_2*omg_2*
                     qSin(2*(th_1 - th_2))-12*l_1*omg_1*omg_1*(m_1+3*m_2)*qSin(th_1 - th_2)+
                     3*9.81*qSin(th_2)*(m_1+6*m_2));
 

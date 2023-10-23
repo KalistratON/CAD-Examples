@@ -10,7 +10,6 @@ CONFIG += c++17
 
 SOURCES += \
     brunch.cpp \
-    customplot.cpp \
     eulersolver.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -19,14 +18,12 @@ SOURCES += \
 
 HEADERS += \
     brunch.h \
-    customplot.h \
     eulersolver.h \
     mainwindow.h \
     rungekuttasolver.h \
     solver.h
 
 FORMS += \
-    customplot.ui \
     mainwindow.ui
 
 # Default rules for deployment.
