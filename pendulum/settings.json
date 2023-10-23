@@ -2,21 +2,21 @@
 "title":"Task1",
 "segment":[
 {
-	"lenght":4,
-	"mass":10,
-	"theta":60,
-	"omega":0
+	"lenght":2,
+	"mass":4,
+	"theta":90,
+	"omega":2
 },
 {
 	"lenght":4,
-	"mass":10,
-	"theta":30,
-	"omega":0
+	"mass": 2,
+	"theta":90,
+	"omega":-1
 }
 ],
-"durance":10,
+"durance":40,
 "solver":{
 	"type":"runge_kutta",
-	"step":0.001
+	"step":0.00001
 }	
 }

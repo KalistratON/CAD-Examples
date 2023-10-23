@@ -71,7 +71,6 @@ void MainWindow::setStartPosition()
         scene->removeItem(brunchBase);
         delete brunchChild;
         delete brunchBase;
-
     }
     //solver.release();
     if (solver_type == "euler")
