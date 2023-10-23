@@ -7,8 +7,8 @@
 !orthogonalization*/*.mlx
 
 
-!point_in_polygon*/FloatError/*.cpp
-!point_in_polygon*/FloatError/*.h
-!point_in_polygon*/FloatError/*.pro*
-!point_in_polygon*/FloatError/*.ui
-!point_in_polygon*/FloatError/*.mlx
+!point_in_polygon*/*.cpp
+!point_in_polygon*/*.h
+!point_in_polygon*/*.pro*
+!point_in_polygon*/*.ui
+!point_in_polygon*/*.mlx
